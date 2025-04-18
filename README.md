@@ -1,14 +1,68 @@
-# React + Vite
+# 💼 Abhiram Kumar - Developer Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to my **Personal Portfolio Website** built with **React.js** and styled using **Tailwind CSS**. This site showcases who I am, the projects I've built, the skills I bring to the table, and how you can get in touch with me.
 
-Currently, two official plugins are available:
+![Portfolio Screenshot](./screenshot.png) <!-- Optional: Add a screenshot of your website -->
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🌐 Live Demo
 
-## Expanding the ESLint configuration
+👉 [Visit My Portfolio](https://your-portfolio-link.vercel.app)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-![image](https://github.com/user-attachments/assets/afd87d2f-cf3c-4626-aec7-f2354ef63cf6)
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend:** React.js, Tailwind CSS, Framer Motion
+- **Icons & UI:** React Icons
+- **Deployment:** Vercel
+- **Email Contact (Backend API):** Nodemailer (deployed on Vercel Edge Functions)
+
+---
+
+## 📂 Folder Structure
+
+```bash
+.
+├── public/               # Static assets
+├── src/
+│   ├── components/       # Reusable components (Navbar, Footer, etc.)
+│   ├── App.jsx           # Main app ent
+├── tailwind.config.js
+└── README.md
+
+🚀 Features
+⚡ Smooth scroll and animated transitions
+
+📱 Fully responsive design
+
+📧 Contact form with working email integration using Nodemailer
+
+🌙 Dark mode ready (optional upgrade)
+
+🎯 Clean and modern UI
+
+📬 Contact
+If you'd like to collaborate, discuss an opportunity, or just want to say hi:
+
+Email: abhiramkumar2000@gmail.com
+
+Twitter: @Abhiram_9898
+
+Instagram: @ig_maahi
+
+🧠 Future Improvements
+Add blog section using MDX
+
+Dark mode toggle
+
+Add animation with GSAP or Lottie
+
+Improve backend with rate limiting and validation
+
+📝 License
+This project is open source and free to use under the MIT License.
+
+Designed and Developed with ❤️ by Abhiram Kumar
+
+![image](https://github.com/user-attachments/assets/f0eb528c-2e41-4c3c-b503-e4178b7b38bc)
 
