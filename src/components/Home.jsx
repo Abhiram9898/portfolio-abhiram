@@ -122,7 +122,7 @@ export default function Home() {
         <img
           src={heroImg}
           alt="Abhiram Kumar"
-          className="rounded-full w-64 h-64 md:w-72 md:h-72 object-cover shadow-lg border-4 border-blue-500"
+          className="rounded-full w-64 h-64 mx-auto mt-15  md:w-72 md:h-72 object-cover shadow-lg border-4 border-blue-500"
         />
       </motion.div>
     </section>
