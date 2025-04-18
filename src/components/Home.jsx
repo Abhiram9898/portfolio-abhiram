@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
-import heroImg from '../assets/abhiram.jpg'; // Your actual image path
+import heroImg from '../assets/Abhiram.jpg'; // Your actual image path
 
 const titles = [
   "Full Stack Developer",
