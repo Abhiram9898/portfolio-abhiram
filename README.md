@@ -53,7 +53,6 @@ Instagram: @ig_maahi
 
 🧠 Future Improvements
 Add blog section using MDX
-
 Dark mode toggle
 
 Add animation with GSAP or Lottie
