@@ -2,7 +2,8 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
-import heroImg from '../assets/Abhiram.jpg'; // Your actual image path
+import heroImg from '../assets/Abhiram.jpg'; 
+
 
 const titles = [
   "Full Stack Developer",
@@ -82,6 +83,14 @@ export default function Home() {
           >
             Let’s Connect
           </a>
+          <a
+  href="mailto:abhiramkumar2000@gmail.com"
+  className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold shadow-md hover:bg-blue-700 transition"
+>
+  Hire Me
+</a>
+
+
         </motion.div>
 
         {/* Social Icons */}

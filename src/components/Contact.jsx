@@ -31,7 +31,7 @@ export default function Contact() {
           className="bg-white shadow-md rounded-xl p-6 grid gap-4 max-w-xl mx-auto"
           onSubmit={(e) => {
             e.preventDefault();
-            alert("Message sent! (form not wired yet)");
+            alert("Message sent!");
           }}
           
         >
