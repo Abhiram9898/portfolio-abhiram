@@ -1,4 +1,3 @@
-// Projects.jsx
 import { motion } from 'framer-motion';
 
 const projects = [
@@ -13,8 +12,8 @@ const projects = [
     title: "Portfolio Website",
     description: "Personal portfolio built with React and Tailwind CSS showcasing my skills and projects.",
     tech: "React, Tailwind CSS, Framer Motion",
-    link: "",
-    github: "",
+    link: "https://portfolio-abhiram.vercel.app",
+    github: "https://github.com/Abhiram9898/portfolio-abhiram",
   },
   {
     title: "Driver Drowsiness Detection",
@@ -29,6 +28,20 @@ const projects = [
     tech: "Python, Tkinter, NLTK",
     link: "#",
     github: "https://github.com/Abhiram9898/Medi-Chatbot",
+  },
+  {
+    title: " Full-Stack Auth System — React + Node.js + Google OAuth",
+    description: "A modern authentication system with React frontend, JWT-secured Node.js backend, Google OAuth integration, and secure cookie-based refresh tokens.",
+    tech: "React, Tailwind CSS, Framer Motion, GSAP, Node.js, JWT, Google OAuth 2.0",
+    link: "#",
+    github: "https://github.com/Abhiram9898/auth-system-react-node",
+  },
+   {
+    title: " Fertilizer Shop Management System",
+    description: "A desktop application to streamline shop inventory and billing operations, enabling fast data retrieval and improved record management.",
+    tech: "VB 6.0, Oracle 10g",
+    link: "#",
+    github: "https://github.com/Abhiram9898/Fertilizer-Shop-Management-System",
   },
 ];
 

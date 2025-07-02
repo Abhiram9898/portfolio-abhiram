@@ -1,9 +1,9 @@
 // Hero.jsx
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
-import heroImg from '../assets/Abhiram.jpg'; 
-
+import heroImg from '../assets/Abhiram.jpg';
+import { gsap } from 'gsap';
 
 const titles = [
   "Full Stack Developer",
@@ -14,117 +14,197 @@ const titles = [
 ];
 
 export default function Home() {
-  const [currentTitle, setCurrentTitle] = useState(0);
+  const [currentTitleIndex, setCurrentTitleIndex] = useState(0);
+  const heroRef = useRef(null); // Ref for the whole hero section
+  const imageRef = useRef(null); // Ref for the image for GSAP
+  const textContentRef = useRef(null); // Ref for the text content for GSAP
+  const buttonsRef = useRef(null); // Ref for buttons
+  const socialIconsRef = useRef(null); // Ref for social icons
 
   useEffect(() => {
+    // Dynamic title animation (still good with Framer Motion)
     const interval = setInterval(() => {
-      setCurrentTitle((prev) => (prev + 1) % titles.length);
-    }, 2500);
+      setCurrentTitleIndex((prev) => (prev + 1) % titles.length);
+    }, 3000);
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    // GSAP Animations
+    const ctx = gsap.context(() => {
+      // Main timeline for hero entrance
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+      // Image animation
+      tl.fromTo(imageRef.current,
+        { opacity: 0, scale: 0.7, rotate: -20, y: 50 },
+        { opacity: 1, scale: 1, rotate: 0, y: 0, duration: 1.2, delay: 0.2,
+          // Add a slight bounce with keyframes for more character
+          keyframes: [
+            { scale: 1.1, ease: "power2.out", duration: 0.3 },
+            { scale: 1, ease: "bounce.out", duration: 0.6 }
+          ]
+        }, "<0.2") // Start slightly before text
+
+      // Staggered text content animation
+      tl.fromTo(textContentRef.current.children,
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.8, stagger: 0.15 },
+        "<0.3" // Start 0.3 seconds after the previous animation ends
+      );
+
+      // Buttons animation
+      tl.fromTo(buttonsRef.current.children,
+        { opacity: 0, y: 30, scale: 0.8 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.6, stagger: 0.1 },
+        "<0.2" // Start 0.2 seconds after previous
+      );
+
+      // Social icons animation
+      tl.fromTo(socialIconsRef.current.children,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 },
+        "<0.2" // Start 0.2 seconds after previous
+      );
+
+    }, heroRef); // <- Scope all GSAP animations to the heroRef element
+
+    return () => ctx.revert(); // Clean up GSAP animations on component unmount
+  }, []);
+
+  // Framer Motion Variants for smooth text transitions (still used for H2)
+  const socialIconVariants = {
+    hover: { scale: 1.2, color: "#3B82F6", transition: { type: "spring", stiffness: 300 } },
+    tap: { scale: 0.9 },
+  };
 
   return (
     <section
       id="hero"
-      className="min-h-screen flex flex-col-reverse md:flex-row items-center justify-center bg-white text-gray-900 px-6 gap-10"
+      ref={heroRef} // Assign ref to the main section
+      className="min-h-screen flex flex-col-reverse md:flex-row items-center justify-center
+                 bg-gradient-to-br from-blue-50 to-indigo-100 text-gray-900
+                 px-6 py-16 md:py-0 gap-10 relative overflow-hidden"
     >
+      
+
+
       {/* Text Content */}
-      <div className="flex-1 text-center md:text-left">
-        <motion.h1
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-4xl sm:text-6xl font-bold mb-2"
-        >
-          Hi, I'm <span className="text-blue-600">Abhiram Kumar</span>
-        </motion.h1>
+      <div ref={textContentRef} className="flex-1 text-center md:text-left z-10">
+        <h1 className="text-4xl sm:text-6xl font-extrabold mb-2 leading-tight">
+          Hi, I'm <span className="text-blue-700 tracking-wide">Abhiram Kumar</span>
+        </h1>
 
-        <motion.h2
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3, duration: 0.6 }}
-          className="text-xl sm:text-2xl font-semibold text-blue-500 mb-4"
-        >
-          {titles[currentTitle]}
-        </motion.h2>
+        <AnimatePresence mode="wait">
+          <motion.h2
+            key={titles[currentTitleIndex]}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="text-xl sm:text-3xl font-semibold text-blue-600 mb-6 italic"
+          >
+            {titles[currentTitleIndex]}
+          </motion.h2>
+        </AnimatePresence>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5, duration: 0.6 }}
-          className="text-lg sm:text-xl max-w-lg mx-auto md:mx-0 mb-6 text-gray-600"
-        >
+        <p className="text-lg sm:text-xl max-w-lg mx-auto md:mx-0 mb-8 text-gray-700 leading-relaxed">
           I'm a passionate Full Stack Developer with hands-on experience in building modern web applications using the MERN stack. I love creating clean, scalable, and high-performance solutions.
-        </motion.p>
+        </p>
 
         {/* CTA Buttons */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.7, duration: 0.4 }}
-          className="flex flex-col sm:flex-row justify-center md:justify-start items-center gap-4"
-        >
+        <div ref={buttonsRef} className="flex flex-col sm:flex-row justify-center md:justify-start items-center gap-4 mb-8">
           <a
             href="/Abhiram_resume.pdf"
             download
-            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-xl shadow-md transition duration-300"
+            className="group relative inline-flex items-center justify-center
+                       px-8 py-3 rounded-full overflow-hidden
+                       bg-gradient-to-r from-blue-600 to-indigo-700 text-white font-bold
+                       shadow-lg hover:shadow-xl transition-all duration-300 ease-out
+                       transform hover:scale-105"
           >
-            Download Resume
+            <span className="relative z-10">Download Resume</span>
+            <span className="absolute inset-0 bg-blue-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
           </a>
+
           <a
             href="#projects"
-            className="border-2 border-blue-600 text-blue-600 px-6 py-2 rounded-xl hover:bg-blue-600 hover:text-white transition"
+            className="group relative inline-flex items-center justify-center
+                       px-8 py-3 rounded-full overflow-hidden
+                       border-2 border-blue-600 text-blue-600 font-bold
+                       hover:bg-blue-600 hover:text-white transition-all duration-300 ease-out
+                       transform hover:scale-105"
           >
-            View Projects
+            <span className="relative z-10">View Projects</span>
+            <span className="absolute inset-0 bg-blue-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
           </a>
+
           <a
-            href="#contact"
-            className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-6 rounded-xl transition duration-300"
+            href="mailto:abhiramkumar2000@gmail.com"
+            className="group relative inline-flex items-center justify-center
+                       px-8 py-3 rounded-full overflow-hidden
+                       bg-gray-200 text-gray-800 font-bold
+                       shadow-md hover:shadow-lg hover:bg-gray-300 transition-all duration-300 ease-out
+                       transform hover:scale-105"
           >
-            Let’s Connect
+            <span className="relative z-10">Let’s Connect</span>
+            <span className="absolute inset-0 bg-gray-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
           </a>
-          <a
-  href="mailto:abhiramkumar2000@gmail.com"
-  className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold shadow-md hover:bg-blue-700 transition"
->
-  Hire Me
-</a>
-
-
-        </motion.div>
+        </div>
 
         {/* Social Icons */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 0.4 }}
-          className="mt-6 flex justify-center md:justify-start gap-6 text-xl text-gray-600"
-        >
-          <a href="https://github.com/Abhiram9898" target="_blank" rel="noopener noreferrer">
+        <div ref={socialIconsRef} className="mt-6 flex justify-center md:justify-start gap-6 text-2xl text-gray-500">
+          <motion.a
+            variants={socialIconVariants}
+            whileHover="hover"
+            whileTap="tap"
+            href="https://github.com/Abhiram9898"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub Profile"
+          >
             <FaGithub />
-          </a>
-          <a href="https://linkedin.com/in/abhiram-kumar-341ab5140" target="_blank" rel="noopener noreferrer">
+          </motion.a>
+          <motion.a
+            variants={socialIconVariants}
+            whileHover="hover"
+            whileTap="tap"
+            href="https://linkedin.com/in/abhiram-kumar-341ab5140"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn Profile"
+          >
             <FaLinkedin />
-          </a>
-          <a href="mailto:abhiramkumar2000@gmail.com">
+          </motion.a>
+          <motion.a
+            variants={socialIconVariants}
+            whileHover="hover"
+            whileTap="tap"
+            href="mailto:abhiramkumar2000@gmail.com"
+            aria-label="Email Me"
+          >
             <FaEnvelope />
-          </a>
-        </motion.div>
+          </motion.a>
+        </div>
       </div>
 
       {/* Hero Image */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.5, duration: 0.6 }}
-        className="flex-1 flex justify-center"
-      >
-        <img
-          src={heroImg}
-          alt="Abhiram Kumar"
-          className="rounded-full w-64 h-64 mx-auto mt-15  md:w-72 md:h-72 object-cover shadow-lg border-4 border-blue-500"
-        />
-      </motion.div>
+      <div className="flex-1 flex justify-center relative z-0">
+        <div ref={imageRef} className="relative p-2 md:p-4 rounded-full bg-blue-100 shadow-xl border-blue-300 border-opacity-70 border-4">
+          <img
+            src={heroImg}
+            alt="Abhiram Kumar"
+            className="rounded-full w-64 h-64 md:w-72 md:h-72 object-cover"
+          />
+          {/* Subtle animated ring around the image (Framer Motion) */}
+          <motion.div
+            className="absolute inset-0 rounded-full border-4 border-blue-400 border-dashed opacity-50 pointer-events-none"
+            initial={{ scale: 1.05, rotate: 0 }}
+            animate={{ scale: 1.1, rotate: 360 }} // Rotate 360 degrees
+            transition={{ repeat: Infinity, duration: 12, ease: "linear" }} // Slower rotation
+          ></motion.div>
+        </div>
+      </div>
     </section>
   );
 }
