@@ -5,7 +5,7 @@ const projects = [
     title: "DevConnect - Developer Portfolio Hub",
     description: "DevConnect is a sleek and modern React application that showcases GitHub developer profiles in a beautifully paginated grid layout.",
     tech: "React, Tailwind CSS, Axios (for API requests), Lucide-react (icons)",
-    link: "https://vercel.com/abhiram-kumars-projects/dev-connect",
+    link: "https://dev-connect-gray.vercel.app",
     github: "https://github.com/Abhiram9898/DevConnect",
   },
   {
