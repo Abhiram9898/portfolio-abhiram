@@ -2,7 +2,8 @@
 
 Welcome to my **Personal Portfolio Website** built with **React.js** and styled using **Tailwind CSS**. This site showcases who I am, the projects I've built, the skills I bring to the table, and how you can get in touch with me.
 
-![image](https://github.com/user-attachments/assets/ba605ad9-b84d-4277-9b92-8c8aee246731)
+![image](https://github.com/user-attachments/assets/d6ebb1ea-7514-4539-aa38-10e562e32a52)
+
 
 
 ## 🌐 Live Demo
