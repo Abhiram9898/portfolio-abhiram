@@ -93,7 +93,7 @@ export default function Navbar() {
             </Link>
           ))}
           <a
-            href="/Abhiram_resume.pdf"
+            href="/abhiram_resume_new.pdf"
             download
             className="group relative inline-flex items-center justify-center
                        px-5 py-2 rounded-full overflow-hidden

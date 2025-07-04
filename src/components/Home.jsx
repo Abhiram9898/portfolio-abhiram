@@ -115,7 +115,7 @@ export default function Home() {
         {/* CTA Buttons */}
         <div ref={buttonsRef} className="flex flex-col sm:flex-row justify-center md:justify-start items-center gap-4 mb-8">
           <a
-            href="/Abhiram_resume.pdf"
+            href="/abhiram_resume_new.pdf"
             download
             className="group relative inline-flex items-center justify-center
                        px-8 py-3 rounded-full overflow-hidden
