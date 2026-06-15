@@ -139,7 +139,7 @@ export default function Navbar() {
             ))}
             <motion.div variants={navItemVariants}>
               <a
-                href="/Abhiram_resume.pdf"
+                href="/Abhiram_SDE1.pdf"
                 download
                 className="block bg-gradient-to-r from-blue-600 to-indigo-700 hover:opacity-90
                            text-white font-semibold text-center py-3 rounded-full transition-all duration-300 shadow-md"

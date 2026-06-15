@@ -38,7 +38,8 @@ export default function Home() {
       // Image animation
       tl.fromTo(imageRef.current,
         { opacity: 0, scale: 0.7, rotate: -20, y: 50 },
-        { opacity: 1, scale: 1, rotate: 0, y: 0, duration: 1.2, delay: 0.2,
+        {
+          opacity: 1, scale: 1, rotate: 0, y: 0, duration: 1.2, delay: 0.2,
           // Add a slight bounce with keyframes for more character
           keyframes: [
             { scale: 1.1, ease: "power2.out", duration: 0.3 },
@@ -86,7 +87,7 @@ export default function Home() {
                  bg-gradient-to-br from-blue-50 to-indigo-100 text-gray-900
                  px-6 py-16 md:py-0 gap-10 relative overflow-hidden"
     >
-      
+
 
 
       {/* Text Content */}
@@ -115,7 +116,7 @@ export default function Home() {
         {/* CTA Buttons */}
         <div ref={buttonsRef} className="flex flex-col sm:flex-row justify-center md:justify-start items-center gap-4 mb-8">
           <a
-            href="/abhiram_resume_new.pdf"
+            href="/Abhiram_SDE1.pdf"
             download
             className="group relative inline-flex items-center justify-center
                        px-8 py-3 rounded-full overflow-hidden
