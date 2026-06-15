@@ -1,155 +1,72 @@
-// Navbar.jsx
-import { useState, useEffect } from 'react'; // Import useEffect
-import { Link } from 'react-scroll';
-import { FiMenu, FiX } from 'react-icons/fi';
-import { motion, AnimatePresence } from 'framer-motion'; // Import motion and AnimatePresence
+import { useEffect, useState } from 'react';
+import { AnimatePresence, motion as Motion } from 'framer-motion';
+import { FiArrowUpRight, FiMenu, FiX } from 'react-icons/fi';
+
+const links = [
+  ['About', '#about'],
+  ['Experience', '#experience'],
+  ['Stack', '#skills'],
+  ['Work', '#projects'],
+  ['Contact', '#contact'],
+];
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false); // New state for scroll detection
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  const navLinks = [
-    { name: 'Home', to: 'hero' },
-    { name: 'About', to: 'about' },
-    { name: 'Skills', to: 'skills' },
-    { name: 'Projects', to: 'projects' },
-    { name: 'Contact', to: 'contact' },
-  ];
-
-  // Effect to detect scroll position
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) { // Adjust scroll threshold as needed
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Framer Motion variants for mobile menu
-  const menuVariants = {
-    hidden: { opacity: 0, y: -50, transition: { duration: 0.3 } },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.3 } },
-  };
-
-  // Framer Motion variants for individual nav links (optional, for staggering)
-  const navItemVariants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.2, ease: 'easeOut' } },
-  };
-
   return (
-    <motion.nav
-      initial={false} // Prevents initial animation on mount
-      animate={isScrolled ? "scrolled" : "top"} // Animate based on scroll state
-      variants={{
-        top: {
-          backgroundColor: 'rgba(255, 255, 255, 0.95)', // Slightly transparent white
-          boxShadow: '0 4px 10px rgba(0, 0, 0, 0.05)', // Lighter shadow
-          paddingTop: '12px', // py-3 (3 * 4px = 12px)
-          paddingBottom: '12px',
-        },
-        scrolled: {
-          backgroundColor: 'rgba(255, 255, 255, 0.8)', // More transparent when scrolled
-          boxShadow: '0 8px 20px rgba(0, 0, 0, 0.1)', // Deeper shadow when scrolled
-          backdropFilter: 'blur(8px)', // Glassmorphism effect
-          WebkitBackdropFilter: 'blur(8px)', // For Safari support
-          paddingTop: '8px', // Smaller padding when scrolled
-          paddingBottom: '8px',
-        },
-      }}
-      transition={{ duration: 0.3 }}
-      className="fixed top-0 w-full z-50" // Base classes
+    <Motion.header
+      initial={{ y: -80 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${scrolled ? 'py-3' : 'py-5'}`}
     >
-      <div className="max-w-7xl mx-auto px-4 flex justify-between items-center">
-        <Link to="hero" smooth={true} duration={500} className="cursor-pointer">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-2xl font-extrabold text-blue-700 hover:text-blue-900 transition-colors"
-          >
-            Abhiram.<span className="text-indigo-600">dev</span> {/* Subtle color split */}
-          </motion.div>
-        </Link>
+      <nav className={`section-wrap flex items-center justify-between rounded-full px-4 py-2 transition-all ${scrolled ? 'glass' : ''}`}>
+        <a href="#hero" className="flex items-center gap-3" aria-label="Abhiram home">
+          <span className="grid h-9 w-9 place-items-center rounded-full bg-[#70f1ff] text-sm font-extrabold text-[#071015]">AK</span>
+          <span className="mono hidden text-[11px] uppercase tracking-[0.18em] text-slate-300 sm:block">Abhiram / Dev</span>
+        </a>
 
-        <div className="hidden md:flex items-center space-x-6"> {/* items-center for resume button alignment */}
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              to={link.to}
-              smooth={true}
-              duration={500}
-              spy={true} // Activate spy scrolling
-              hashSpy={true} // Activate hash scrolling for URL updates
-              activeClass="text-blue-600 border-b-2 border-blue-600 pb-1" // Class for active link
-              className="cursor-pointer text-gray-700 hover:text-blue-600 font-medium transition-all duration-200"
-            >
-              {link.name}
-            </Link>
+        <div className="hidden items-center gap-5 lg:flex">
+          {links.map(([label, href], index) => (
+            <a key={href} href={href} className="mono group text-[11px] uppercase tracking-[0.15em] text-slate-400 transition hover:text-white">
+              <span className="mr-1 text-slate-600">0{index + 1}</span> {label}
+            </a>
           ))}
-          <a
-            href="/abhiram_resume_new.pdf"
-            download
-            className="group relative inline-flex items-center justify-center
-                       px-5 py-2 rounded-full overflow-hidden
-                       bg-gradient-to-r from-blue-600 to-indigo-700 text-white font-bold
-                       shadow-md hover:shadow-lg transition-all duration-300 ease-out
-                       transform hover:scale-105"
-          >
-            <span className="relative z-10">Resume</span>
-            <span className="absolute inset-0 bg-blue-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+          <a href="/Abhiram_SDE1.pdf" target="_blank" rel="noreferrer" className="button-secondary min-h-10 px-5 text-[11px]">
+            Resume <FiArrowUpRight />
           </a>
         </div>
 
-        <div className="md:hidden">
-          <button onClick={() => setIsOpen(!isOpen)} className="text-gray-700 hover:text-blue-600 transition-colors">
-            {isOpen ? <FiX size={28} /> : <FiMenu size={28} />} {/* Slightly larger icons */}
-          </button>
-        </div>
-      </div>
+        <button onClick={() => setOpen(!open)} className="grid h-10 w-10 place-items-center rounded-full border border-white/10 lg:hidden" aria-label="Toggle menu">
+          {open ? <FiX /> : <FiMenu />}
+        </button>
+      </nav>
 
-      {/* Mobile Menu with Framer Motion */}
       <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            variants={menuVariants}
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
-            className="md:hidden bg-white px-6 pb-4 space-y-4 shadow-lg border-t border-gray-100" // Deeper shadow, border-top
+        {open && (
+          <Motion.div
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            className="section-wrap glass mt-2 rounded-3xl p-4 lg:hidden"
           >
-            {navLinks.map((link) => (
-              <motion.div key={link.name} variants={navItemVariants}>
-                <Link
-                  to={link.to}
-                  smooth={true}
-                  duration={500}
-                  activeClass="text-blue-600 font-bold" // Active class for mobile links
-                  className="block text-gray-700 hover:text-blue-600 text-lg py-2 transition-colors" // Larger text, more padding
-                  onClick={() => setIsOpen(false)}
-                >
-                  {link.name}
-                </Link>
-              </motion.div>
-            ))}
-            <motion.div variants={navItemVariants}>
-              <a
-                href="/Abhiram_SDE1.pdf"
-                download
-                className="block bg-gradient-to-r from-blue-600 to-indigo-700 hover:opacity-90
-                           text-white font-semibold text-center py-3 rounded-full transition-all duration-300 shadow-md"
-              >
-                Download Resume
+            {links.map(([label, href], index) => (
+              <a key={href} href={href} onClick={() => setOpen(false)} className="mono flex justify-between border-b border-white/10 px-2 py-4 text-sm uppercase tracking-widest text-slate-300">
+                {label}<span className="text-slate-600">0{index + 1}</span>
               </a>
-            </motion.div>
-          </motion.div>
+            ))}
+            <a href="/Abhiram_SDE1.pdf" target="_blank" rel="noreferrer" className="button-primary mt-4 w-full">Open resume <FiArrowUpRight /></a>
+          </Motion.div>
         )}
       </AnimatePresence>
-    </motion.nav>
+    </Motion.header>
   );
 }

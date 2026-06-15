@@ -1,101 +1,60 @@
-// About.jsx
-import { motion } from 'framer-motion';
-import { FaGraduationCap, FaBriefcase, FaCode } from 'react-icons/fa'; // Import icons
+import { motion as Motion } from 'framer-motion';
+import { FiArrowUpRight, FiCode, FiLayers, FiZap } from 'react-icons/fi';
+import DepthCard from './DepthCard';
+
+const facts = [
+  { value: '07+', label: 'Projects shipped' },
+  { value: '13', label: 'Core technologies' },
+  { value: 'MCA', label: 'Computer applications' },
+];
+
+const principles = [
+  { icon: FiZap, title: 'Fast by default', text: 'Performance is a feature. I build experiences that feel immediate on every screen.' },
+  { icon: FiLayers, title: 'End-to-end thinking', text: 'From interface details to APIs and deployment, I care about the whole product.' },
+  { icon: FiCode, title: 'Built to evolve', text: 'Clear systems and maintainable code make the next version easier than the first.' },
+];
 
 export default function About() {
-  // Framer Motion Variants for staggered appearance
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15, // Stagger children by 0.15 seconds
-        delayChildren: 0.2, // Delay before children start animating
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 50, scale: 0.8 },
-    visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 100, damping: 12 } },
-  };
-
-  const titleVariants = {
-    hidden: { opacity: 0, y: -30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
-  };
-
-  const paragraphVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { delay: 0.3, duration: 0.6, ease: "easeOut" } },
-  };
-
-  const factCards = [
-    { title: "Education", content: "MCA, Graphic Era Hill University (2022-2024)", icon: <FaGraduationCap /> },
-    { title: "Experience", content: "MERN Stack Internship at GeeksforGeeks", icon: <FaBriefcase /> },
-    { title: "Key Technologies", content: "React, Node.js, Express, MongoDB, Java, Python", icon: <FaCode /> },
-  ];
-
   return (
-    <section
-      id="about"
-      className="py-16 px-6 bg-gradient-to-br from-gray-50 to-blue-50 text-gray-900 relative overflow-hidden" // Subtle gradient background
-    >
-      {/* Optional: Add subtle background shapes/gradients if you want more visual flair */}
-      <div className="absolute top-10 left-1/2 w-48 h-48 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-blob pointer-events-none"></div>
-      <div className="absolute bottom-20 right-1/4 w-40 h-40 bg-indigo-200 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-blob animation-delay-2000 pointer-events-none"></div>
-
-      <div className="max-w-5xl mx-auto text-center z-10 relative"> {/* Added z-10, relative */}
-        <motion.h2
-          variants={titleVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }} // Trigger animation once when 50% in view
-          className="text-3xl md:text-5xl font-extrabold mb-6 text-blue-700 leading-tight tracking-tight" // Larger, bolder title, tighter tracking
-        >
-          About <span className="text-indigo-600">Me</span>
-        </motion.h2>
-
-        <motion.p
-          variants={paragraphVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }} // Trigger animation once
-          className="text-lg md:text-xl max-w-3xl mx-auto text-gray-700 leading-relaxed mb-10" // Darker text, more margin-bottom
-        >
-          I'm <span className="font-bold text-blue-600">Abhiram Kumar</span>, a passionate and driven Full Stack Developer specialized in the MERN stack.
-          With a strong foundation in Java, Python, and a keen interest in DevOps practices, I thrive on building robust, scalable, and high-performance web applications.
-          Currently, my focus is on mastering advanced React patterns, optimizing Node.js and MongoDB solutions, and deploying full-stack projects seamlessly using cloud platforms like AWS and containerization with Docker. I am committed to continuous learning and crafting impactful digital experiences.
-        </motion.p>
-      </div>
-
-      <motion.div
-        variants={containerVariants} // Apply container variants for stagger
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }} // Trigger animation when 30% in view
-        className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto z-10 relative" // Increased gap, added z-10
-      >
-        {factCards.map((item, index) => (
-          <motion.div
-            key={index}
-            variants={itemVariants} // Apply item variants to each card
-            className="group bg-white rounded-2xl p-7 shadow-lg border border-blue-100
-                       hover:shadow-xl hover:scale-105 transition-all duration-300 ease-out
-                       flex flex-col items-center text-center transform" // Added flex for icon, transform for hover
-          >
-            <div className="text-blue-600 text-4xl mb-4 group-hover:text-indigo-700 transition-colors duration-300">
-              {item.icon} {/* Render the icon */}
-            </div>
-            <h3 className="text-2xl font-bold mb-3 text-blue-700 group-hover:text-blue-900 transition-colors duration-300">
-              {item.title}
-            </h3>
-            <p className="text-gray-700 text-lg leading-relaxed">
-              {item.content}
+    <section id="about" className="py-28 sm:py-36">
+      <div className="section-wrap">
+        <div className="section-kicker">01 / Profile</div>
+        <div className="grid gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-24">
+          <Motion.h2 initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="section-title">
+            Curious mind. <span>Practical builder.</span>
+          </Motion.h2>
+          <Motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="flex flex-col justify-between gap-8">
+            <p className="text-lg leading-8 text-slate-400">
+              I specialize in the MERN stack and enjoy solving the complete problem, not just writing the code. My background in Java, Python, cloud tools, and DevOps helps me build reliable products with a wider technical view.
             </p>
-          </motion.div>
-        ))}
-      </motion.div>
+            <a href="/Abhiram_SDE1.pdf" target="_blank" rel="noreferrer" className="mono flex w-fit items-center gap-3 border-b border-cyan-300/50 pb-2 text-xs uppercase tracking-[0.18em] text-cyan-200">
+              Read my resume <FiArrowUpRight />
+            </a>
+          </Motion.div>
+        </div>
+
+        <div className="mt-20 grid gap-px overflow-hidden rounded-3xl border border-white/10 bg-white/10 sm:grid-cols-3">
+          {facts.map((fact) => (
+            <DepthCard key={fact.label} intensity={3} className="bg-[#090d14] px-7 py-9">
+              <div className="text-5xl font-semibold tracking-[-0.07em] text-[#c7ff67]">{fact.value}</div>
+              <div className="mono mt-3 text-[10px] uppercase tracking-[0.18em] text-slate-500">{fact.label}</div>
+            </DepthCard>
+          ))}
+        </div>
+
+        <div className="mt-5 grid gap-5 md:grid-cols-3">
+          {principles.map((item, index) => {
+            const Icon = item.icon;
+            return (
+              <DepthCard key={item.title} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.08 }} className="glass group rounded-3xl p-7 transition duration-300 hover:border-cyan-300/30">
+                <Icon className="mb-14 text-xl text-cyan-300" />
+                <h3 className="text-xl font-semibold tracking-tight">{item.title}</h3>
+                <p className="mt-3 text-sm leading-6 text-slate-500">{item.text}</p>
+              </DepthCard>
+            );
+          })}
+        </div>
+      </div>
     </section>
   );
 }
